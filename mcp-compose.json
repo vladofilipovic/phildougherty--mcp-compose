@@ -1,0 +1,74 @@
+{
+  "settings": {
+    "portBase": 19100,
+    "claude": {
+      "disabled": false,
+      "configPath": "~/.mcp.json"
+    },
+    "codex": {
+      "disabled": true,
+      "configPath": "~/.codex/config.toml"
+    },
+    "dsh": {
+      "disabled": false,
+      "home": "~/.dsh",
+      "profiles": [
+        "web"
+      ]
+    },
+    "logLevel": "info",
+    "processPrefix": "mcp-compose-"
+  },
+  "mcpServers": {
+    "aws-docs": {
+      "disabled": true,
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "logLevel": "info",
+      "resourceLimits": {
+        "maxMemory": "512M",
+        "maxRestarts": 10,
+        "restartDelay": 1000
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_YOUR_TOKEN"
+      },
+      "disabled": false
+    },
+    "firecrawl": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-YOUR_API_KEY"
+      },
+      "disabled": false
+    },
+    "aws-knowledge": {
+      "disabled": true,
+      "type": "http",
+      "url": "https://knowledge-mcp.global.api.aws"
+    }
+  }
+}
