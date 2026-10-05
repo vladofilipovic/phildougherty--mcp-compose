@@ -74,9 +74,7 @@ func NewProcess(command string, args []string, opts ProcessOptions) (*Process, e
 	cmd.Stderr = stdout
 
 	// Set process group to detach from parent
-	cmd.SysProcAttr = &syscall.SysProcAttr{
-		Setpgid: true,
-	}
+	setProcessGroup(cmd)
 
 	return &Process{
 		cmd:     cmd,
